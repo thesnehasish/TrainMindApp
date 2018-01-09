@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  trainmindwebapp:
+    image: trainmindwebapp
+    build:
+      context: .
+      dockerfile: TrainMindWebApp/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - trainmindapp
+
+  trainmindapp:
+    image: trainmindapp
+    build:
+      context: .
+      dockerfile: TrainMindApp/Dockerfile
+    ports:
+      - 5001:80
+    depends_on:
+      - db
+  db:
+    image: "microsoft/mssql-server-linux"
+    environment:
+      SA_PASSWORD: "your_password"
+      ACCEPT_EULA: "Y"
+
+
